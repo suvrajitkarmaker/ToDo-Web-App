@@ -35,11 +35,15 @@ function addTodo(event) {
     //prevent form from submitting
     event.preventDefault();
     //add todo to localstorage
-    saveLocalTodos(todoInput.value);
     //todoItem Div
-    const todoDiv = addTodoItem(todoInput.value);
-    //append to list
-    todoList.appendChild(todoDiv);
+    if (validate(todoInput.value) == true) {
+        saveLocalTodos(todoInput.value);
+        const todoDiv = addTodoItem(todoInput.value);
+        //append to list
+        todoList.appendChild(todoDiv);
+    } else {
+        alert("You can't add empty text");
+    }
     todoInput.value = "";
 }
 
@@ -96,4 +100,14 @@ function filterTodo(e) {
                 break;
         }
     })
+}
+
+//////////////////////////////////
+function validate(value) {
+    value = value.replace(/\s+/g, '');
+    console.log('validate value', value,'xx');
+    if (value == null || value == "") {
+        return false;
+    }
+    return true;
 }
